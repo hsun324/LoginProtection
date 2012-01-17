@@ -10,15 +10,12 @@ Compiling
 ---------
 
 You need to have Maven installed (http://maven.apache.org). Once installed,
-simply run:
-
-    cd <Maven Directory>
-
-and
+simply run in the download directory:
 
     mvn clean install
 
 Maven will automatically download the required dependencies for you.
+Note: You must have Maven set in your system's PATH to be able to do this.
 
 Issue Tracker
 -------------
