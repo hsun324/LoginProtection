@@ -3,7 +3,7 @@
   <parent>
   	<artifactId>LoginProtection</artifactId>
   	<groupId>com.hsun324.protection</groupId>
-  	<version>0.8.2</version>
+  	<version>0.8.3</version>
   </parent>
   <groupId>com.hsun324.protection</groupId>
   <artifactId>Distribution</artifactId>
@@ -13,7 +13,7 @@
     <dependency>
       <groupId>com.hsun324.protection</groupId>
       <artifactId>main</artifactId>
-      <version>[0.8,)</version>
+      <version>0.8.3</version>
     </dependency>
   </dependencies>
 
