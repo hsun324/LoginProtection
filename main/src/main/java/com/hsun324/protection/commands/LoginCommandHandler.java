@@ -89,7 +89,7 @@ public class LoginCommandHandler
 				{
 					outputUsage(sender);
 				}
-				else if (player.hasPermission("protection.access"))
+				else if (player.hasPermission("loginprotection.access"))
 				{
 					if (ProtectionConfiguration.playerControllable)
 					{
@@ -151,7 +151,7 @@ public class LoginCommandHandler
 				{
 					outputAdminUsage(sender);
 				}
-				else if ((!isPlayer) || (player.hasPermission("protection.admin")))
+				else if ((!isPlayer) || (player.hasPermission("loginprotection.admin")))
 				{
 					if ((isPlayer) && (!ProtectionSystem.isPlayerLoggedIn(player.getName())))
 					{

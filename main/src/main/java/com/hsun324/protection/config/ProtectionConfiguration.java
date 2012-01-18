@@ -33,6 +33,7 @@ public class ProtectionConfiguration
 			config.load(getConfigFile());
 
 			listMode = (ListMode)match(config.getString("list.mode", "DISABLED"), ListMode.DISABLED);
+			
 			playerControllable = config.getBoolean("list.player-controllable", true);
 
 			listedPlayers.clear();
