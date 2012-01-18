@@ -2,29 +2,23 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.hsun324.protection</groupId>
-
-  <artifactId>LoginProtection</artifactId>
   <name>LoginProtection</name>
+  <groupId>com.hsun324.protection</groupId>
+  <artifactId>LoginProtection</artifactId>
+  <version>0.8.2</version>
+  <packaging>pom</packaging>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <repositories>
-  	<repository>
-  		<id>bukkit</id>
-  		<name>Sonatype Bukkit Maven Repository</name>
-  		<url>http://repo.bukkit.org/service/local/repo_groups/bukkit_repos/content/</url>
-  	</repository>
+    <repository>
+      <id>bukkit</id>
+      <name>Sonatype Bukkit Maven Repository</name>
+      <url>http://repo.bukkit.org/service/local/repo_groups/bukkit_repos/content/</url>
+    </repository>
   </repositories>
-  
-
-  <version>0.8.1</version>
-  <issueManagement>
-  	<system>GitHub</system>
-  	<url>https://github.com/hsun324/LoginProtection</url>
-  </issueManagement>
   <dependencies>
     <dependency>
       <groupId>org.bukkit</groupId>
@@ -35,20 +29,13 @@
     </dependency>
   </dependencies>
   
-  <build>
-    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-    <resources>
-      <resource>
-        <targetPath>.</targetPath>
-        <filtering>true</filtering>
-        <directory>${basedir}/src/main/resources/</directory>
-        <includes>
-          <include>*</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/hsun324/LoginProtection</url>
+  </issueManagement>
+  
   <modules>
-  	<module>distribution</module>
+    <module>distribution</module>
+    <module>main</module>
   </modules>
 </project>
