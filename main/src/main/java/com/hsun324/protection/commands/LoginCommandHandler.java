@@ -3,6 +3,8 @@ package com.hsun324.protection.commands;
 import com.hsun324.protection.Protection;
 import com.hsun324.protection.ProtectionSystem;
 import com.hsun324.protection.config.ProtectionConfiguration;
+import com.hsun324.protection.config.ProtectionConfiguration.ListMode;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -75,6 +77,68 @@ public class LoginCommandHandler
 					}
 					else {
 						player.sendMessage("\u00A7e[LoginProtection] I'm sorry, but you don't seem to be logged in.");
+					}
+				}
+				else {
+					outputDisallowed(sender);
+				}
+			}
+			else if (action == ProtectionAction.OPTIN || action == ProtectionAction.OPTOUT)
+			{
+				if ((arguments.length > 2) || (!isPlayer))
+				{
+					outputUsage(sender);
+				}
+				else if (player.hasPermission("protection.access"))
+				{
+					if (ProtectionConfiguration.playerControllable)
+					{
+						if (ProtectionSystem.isPlayerLoggedIn(player.getName()))
+						{
+							if(ProtectionConfiguration.listMode != ListMode.DISABLED)
+							{
+								if(action == ProtectionAction.OPTIN)
+								{
+									if(ProtectionConfiguration.listedPlayers.contains(player.getName().toLowerCase()))
+									{
+										player.sendMessage("\u00A7e[LoginProtection] I'm sorry, but you are already in the list.");
+									}
+									else
+									{
+										ProtectionConfiguration.listedPlayers.add(player.getName().toLowerCase());
+										ProtectionConfiguration.saveToFile();
+										player.sendMessage("\u00A7e[LoginProtection] You are now in the list.");
+										player.sendMessage("\u00A7e[LoginProtection] From now on you will " + (ProtectionConfiguration.listMode == ListMode.WHITELIST?"not":"") + " asked to login.");
+									}
+								}
+								else
+								{
+									if(ProtectionConfiguration.listedPlayers.contains(player.getName().toLowerCase()))
+									{
+										ProtectionConfiguration.listedPlayers.add(player.getName().toLowerCase());
+										ProtectionConfiguration.saveToFile();
+										player.sendMessage("\u00A7e[LoginProtection] You have been removed from the list.");
+										player.sendMessage("\u00A7e[LoginProtection] From now on you will " + (ProtectionConfiguration.listMode == ListMode.BLACKLIST?"not":"") + " asked to login.");
+									}
+									else
+									{
+										player.sendMessage("\u00A7e[LoginProtection] I'm sorry, but I cannot find you on the list.");
+									}
+								}
+							}
+							else
+							{
+								player.sendMessage("\u00A7e[LoginProtection] I'm sorry, but the list is not enabled. \u00A77Ask an administrator for assitance.");
+							}
+						}
+						else
+						{
+							player.sendMessage("\u00A7e[LoginProtection] I'm sorry, but you cannot use that while you are logged out.");
+						}
+					}
+					else
+					{
+						player.sendMessage("\u00A7e[LoginProtection] I'm sorry, but you are not allowed to opt-in and/or opt-out of this. \u00A77Ask an administrator for assitance.");
 					}
 				}
 				else {
@@ -378,6 +442,10 @@ public class LoginCommandHandler
 			return ProtectionAction.HELP;
 		if (argument.equalsIgnoreCase("admin"))
 			return ProtectionAction.ADMIN;
+		if (argument.equalsIgnoreCase("optin"))
+			return ProtectionAction.OPTIN;
+		if (argument.equalsIgnoreCase("optout"))
+			return ProtectionAction.OPTOUT;
 		if ((argument.equalsIgnoreCase("logoff")) || (argument.equalsIgnoreCase("logout")))
 			return ProtectionAction.LOGOFF;
 		return ProtectionAction.FUNCTION;
@@ -387,7 +455,9 @@ public class LoginCommandHandler
 	{
 		ADMIN, 
 		FUNCTION, 
-		HELP, 
+		HELP,
+		OPTIN,
+		OPTOUT,
 		LOGOFF;
 	}
 }
