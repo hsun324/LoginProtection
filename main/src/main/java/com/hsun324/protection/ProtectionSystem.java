@@ -176,6 +176,7 @@ public class ProtectionSystem
 	
 	public static boolean isPlayerLoggedIn(String name)
 	{
+		name = name.toLowerCase();
 		if(!Protection.getInstance().isEnabled())
 			return true;
 		if(playerProtectionMap.containsKey(name))
@@ -185,6 +186,7 @@ public class ProtectionSystem
 	
 	public static void setPlayerLoggedIn(String playerName, boolean loggedIn)
 	{
+		playerName = playerName.toLowerCase();
 		if(playerProtectionMap.containsKey(playerName))
 			playerProtectionMap.get(playerName).setLoggedIn(loggedIn);
 		else
@@ -193,6 +195,7 @@ public class ProtectionSystem
 	
 	public static String getPlayerPasswordHash(String playerName)
 	{
+		playerName = playerName.toLowerCase();
 		if(playerProtectionMap.containsKey(playerName))
 			return playerProtectionMap.get(playerName).getPassword();
 		return "";
@@ -200,6 +203,7 @@ public class ProtectionSystem
 
 	public static void setPlayerPassword(String playerName, String password)
 	{
+		playerName = playerName.toLowerCase();
 		String securePassword = getHash(password);
 		if(playerProtectionMap.containsKey(playerName))
 			playerProtectionMap.get(playerName).setPassword(securePassword);
@@ -209,6 +213,7 @@ public class ProtectionSystem
 	
 	public static void setPlayerEntry(String playerName, boolean loggedIn, String password)
 	{
+		playerName = playerName.toLowerCase();
 		if(playerProtectionMap.containsKey(playerName))
 		{
 			playerProtectionMap.get(playerName).setLoggedIn(loggedIn);
@@ -220,13 +225,14 @@ public class ProtectionSystem
 	
 	public static int getPlayerAttempts(String playerName)
 	{
+		playerName = playerName.toLowerCase();
 		if(playerProtectionMap.containsKey(playerName))
 			return playerProtectionMap.get(playerName).getAttempts();
 		return 0;
 	}
 	public static int incrementPlayerAttempts(Player player)
 	{
-		String playerName = player.getName();
+		String playerName = player.getName().toLowerCase();
 		if(playerProtectionMap.containsKey(playerName))
 		{
 			if(playerProtectionMap.get(playerName).incrementAttempts() >= ProtectionConfiguration.maxAttempts)
@@ -246,7 +252,9 @@ public class ProtectionSystem
 	private static void actUponIllegalAction(Player player)
 	{
 		if(ProtectionConfiguration.punishmentType == PunishmentType.KICK)
+		{
 			player.kickPlayer("[LoginProtection] You attempted to login unsuccessfully too many times.");
+		}
 		else if(ProtectionConfiguration.punishmentType == PunishmentType.BAN)
 		{
 			String ip = player.getAddress().getAddress().getHostAddress();
@@ -258,7 +266,7 @@ public class ProtectionSystem
 
 	public static void setPlayerAttempts(Player player, int attempts)
 	{
-		String playerName = player.getName();
+		String playerName = player.getName().toLowerCase();
 		if(playerProtectionMap.containsKey(playerName))
 			playerProtectionMap.get(playerName).setAttempts(attempts);
 		else
@@ -317,8 +325,8 @@ public class ProtectionSystem
 
 	public static void createStatusIfNone(Player player)
 	{
-		if(!playerProtectionMap.containsKey(player.getName()))
-			ProtectionSystem.setPlayerEntry(player.getName(), false, "");
+		if(!playerProtectionMap.containsKey(player.getName().toLowerCase()))
+			ProtectionSystem.setPlayerEntry(player.getName().toLowerCase(), false, "");
 	}
 	
 	public static void readFromFile()
