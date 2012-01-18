@@ -1,0 +1,21 @@
+name: LoginProtection
+version: "0.8.1"
+main: com.hsun324.protection.Protection
+author: hsun324
+description: Authenticates users through the use of a password.
+commands:
+    loginprotection:
+        description: This command handles authentication and contains some utility functions.
+        usage: /<command> [Help]
+        aliases: ['login', 'lp']
+permissions:
+    loginprotection.*:
+        description: Provides access to all Protection functions.
+        children:
+            protection.access: true
+            protection.admin: true
+        default: op
+    loginprotection.access:
+        description: Allows you to login and logout.
+    loginprotection.admin:
+        description: Allows you to use administration commands.
