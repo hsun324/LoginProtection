@@ -252,7 +252,9 @@ public class ProtectionSystem
 	private static void actUponIllegalAction(Player player)
 	{
 		if(ProtectionConfiguration.punishmentType == PunishmentType.KICK)
+		{
 			player.kickPlayer("[LoginProtection] You attempted to login unsuccessfully too many times.");
+		}
 		else if(ProtectionConfiguration.punishmentType == PunishmentType.BAN)
 		{
 			String ip = player.getAddress().getAddress().getHostAddress();

@@ -15,7 +15,8 @@ public class LoginCommandHandler
 {
 	private static final LoginCommandHandler instance = new LoginCommandHandler();
 
-	public static LoginCommandHandler getInstance() {
+	public static LoginCommandHandler getInstance()
+	{
 		return instance;
 	}
 
