@@ -1,6 +1,8 @@
 package com.hsun324.protection.config;
 
 import com.hsun324.protection.Protection;
+import com.hsun324.protection.ProtectionSystem;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ public class ProtectionConfiguration
 
 	public static final List<String> listedPlayers = new ArrayList<String>();
 	public static ListMode listMode = ListMode.DISABLED;
+	public static boolean playerControllable = true;
 
 	public static int maxAttempts = 5;
 	public static boolean warnEnabled = true;
@@ -30,6 +33,7 @@ public class ProtectionConfiguration
 			config.load(getConfigFile());
 
 			listMode = (ListMode)match(config.getString("list.mode", "DISABLED"), ListMode.DISABLED);
+			playerControllable = config.getBoolean("list.player-controllable", true);
 
 			listedPlayers.clear();
 			for (String player : config.getStringList("list.players"))
@@ -59,6 +63,7 @@ public class ProtectionConfiguration
 
 			config.set("list.mode", listMode.name());
 			config.set("list.players", listedPlayers);
+			config.set("list.player-controllable", playerControllable);
 
 			config.set("ban.max-attempts", Integer.valueOf(maxAttempts));
 			config.set("ban.punishment.type", punishmentType.name());
@@ -73,7 +78,6 @@ public class ProtectionConfiguration
 		{
 			Protection.getInstance().getLogger().warning("[LoginProtection] Failed saving config entries.");
 			Protection.getInstance().getLogger().warning(e.getClass().getName());
-			Protection.getInstance().getServer().getPluginManager().disablePlugin(Protection.getInstance());
 		}
 	}
 
@@ -102,6 +106,7 @@ public class ProtectionConfiguration
 			config.load(getConfigFile());
 
 			config.set("list.mode", "DISABLED");
+			config.set("list.player-controllable", true);
 			config.set("list.players", new ArrayList<String>());
 
 			config.set("ban.max-attempts", Integer.valueOf(5));
@@ -117,7 +122,6 @@ public class ProtectionConfiguration
 		{
 			Protection.getInstance().getLogger().warning("[LoginProtection] Failed creating config entries.");
 			Protection.getInstance().getLogger().warning(e.getClass().getName());
-			Protection.getInstance().getServer().getPluginManager().disablePlugin(Protection.getInstance());
 		}
 	}
 
@@ -136,6 +140,8 @@ public class ProtectionConfiguration
 
 	public static boolean getDefaultLoginStatus(Player player)
 	{
+		if (ProtectionSystem.getPlayerPasswordHash(player.getName()).isEmpty())
+			return false;
 		if (listMode == ListMode.BLACKLIST)
 			return !listedPlayers.contains(player.getName().toLowerCase());
 		if (listMode == ListMode.WHITELIST)
