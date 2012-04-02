@@ -14,25 +14,32 @@
 
   <repositories>
     <repository>
-      <id>bukkit</id>
-      <name>Sonatype Bukkit Maven Repository</name>
-      <url>http://repo.bukkit.org/service/local/repo_groups/bukkit_repos/content/</url>
+      <id>bukkit-repo</id>
+      <url>http://repo.bukkit.org/service/local/repo_groups/public/content/</url>
+    </repository>
+    <repository>
+      <id>local-lib</id>
+      <url>file://${project.basedir}/lib</url>
     </repository>
   </repositories>
+  
+  <issueManagement>
+  	<system>GitHub</system>
+  	<url>https://github.com/hsun324/LoginProtection</url>
+  </issueManagement>
+  
   <dependencies>
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
-      <version>1.0.1-R1</version>
-      <type>jar</type>
-      <scope>compile</scope>
+      <version>1.2.4-R1.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.gmail.klezst</groupId>
+    	<artifactId>bukkitutil</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
-  
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/hsun324/LoginProtection</url>
-  </issueManagement>
   
   <modules>
     <module>distribution</module>

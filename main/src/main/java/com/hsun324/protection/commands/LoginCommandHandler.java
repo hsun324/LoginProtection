@@ -20,7 +20,6 @@ public class LoginCommandHandler
 		return instance;
 	}
 
-	@Override
 	public boolean onCommand(CommandSender sender, Command command, String alias, String[] arguments)
 	{
 		boolean isPlayer = sender instanceof Player;
