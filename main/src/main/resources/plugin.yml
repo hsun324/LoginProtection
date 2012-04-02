@@ -1,5 +1,5 @@
 name: LoginProtection
-version: "0.8.1"
+version: "0.8.3"
 main: com.hsun324.protection.Protection
 author: hsun324
 description: Authenticates users through the use of a password.
